@@ -18,7 +18,7 @@ namespace TriviaBotDSharp
         {
             var config = new DiscordConfiguration
             {
-                Token = "",
+                Token = "OTUxNTI4MjU0NDkyMjYyNDYw.Yioxvg.L5HilvWi0W5L0jUejwf4nWNzm-c",
                 TokenType = TokenType.Bot,
                 Intents = DiscordIntents.AllUnprivileged,
                 MinimumLogLevel = Microsoft.Extensions.Logging.LogLevel.Debug

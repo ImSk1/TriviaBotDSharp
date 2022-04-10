@@ -1,1 +1,1 @@
-worker: node .TriviaBotDSharp/Program.cs
+worker: node ./TriviaBotDSharp/Program.cs

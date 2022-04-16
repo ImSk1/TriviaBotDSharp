@@ -16,7 +16,7 @@ namespace DiscordBotTutorial.Bots.Handlers.Dialogue.Steps
         private IDialogueStep _nextStep;
 
         public TextStep(string title,
-            string content,
+            string content,            
             IDialogueStep nextStep,
             int? minLength = null,
             int? maxLength = null) : base(title, content)
@@ -36,57 +36,40 @@ namespace DiscordBotTutorial.Bots.Handlers.Dialogue.Steps
         }
 
         public override async Task<bool> ProcessStep(DiscordClient client, DiscordChannel channel, DiscordUser user)
-        {
-            var embedBuilder = new DiscordEmbedBuilder
-            {
-                Title = _title,
-                Description = $"{user.Mention}, {_content}",
-            };
-            
-
-            if (_minLength.HasValue)
-            {
-                embedBuilder.AddField("Min Length:", $"{_minLength.Value} characters");
-            }
-            if (_maxLength.HasValue)
-            {
-                embedBuilder.AddField("Max Length:", $"{_maxLength.Value} characters");
-            }
-
+        {                                   
             var interactivity = client.GetInteractivity();
 
             while (true)
-            {
-                var embed = await channel.SendMessageAsync(embed: embedBuilder).ConfigureAwait(false);
+            {                
+                await channel.SendMessageAsync($"{user.Mention} -> {_content}");    
+                
+                //var messageResult = await interactivity.WaitForMessageAsync(
+                //    x => x.ChannelId == channel.Id && x.Author.Id == user.Id).ConfigureAwait(false);
 
+                //if (messageResult.Result.Content.Equals("?cancel", StringComparison.OrdinalIgnoreCase))
+                //{
+                //    return true;
+                //}
 
-                var messageResult = await interactivity.WaitForMessageAsync(
-                    x => x.ChannelId == channel.Id && x.Author.Id == user.Id).ConfigureAwait(false);
+                //if (_minLength.HasValue)
+                //{
+                //    if (messageResult.Result.Content.Length < _minLength.Value)
+                //    {
+                //        await TryAgain(channel, $"Your input is {_minLength.Value - messageResult.Result.Content.Length} characters too short").ConfigureAwait(false);
+                //        continue;
+                //    }
+                //}
 
+                //if (_maxLength.HasValue)
+                //{
+                //    if (messageResult.Result.Content.Length > _maxLength.Value)
+                //    {
+                //        await TryAgain(channel, $"Your input is {messageResult.Result.Content.Length - _maxLength.Value} characters too long").ConfigureAwait(false);
+                //        continue;
+                //    }
+                //}
 
-                if (messageResult.Result.Content.Equals("?cancel", StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-
-                if (_minLength.HasValue)
-                {
-                    if (messageResult.Result.Content.Length < _minLength.Value)
-                    {
-                        await TryAgain(channel, $"Your input is {_minLength.Value - messageResult.Result.Content.Length} characters too short").ConfigureAwait(false);
-                        continue;
-                    }
-                }
-                if (_maxLength.HasValue)
-                {
-                    if (messageResult.Result.Content.Length > _maxLength.Value)
-                    {
-                        await TryAgain(channel, $"Your input is {messageResult.Result.Content.Length - _maxLength.Value} characters too long").ConfigureAwait(false);
-                        continue;
-                    }
-                }
-
-                OnValidResult(messageResult.Result.Content);
+                //OnValidResult(messageResult.Result.Content);
 
                 return false;
             }

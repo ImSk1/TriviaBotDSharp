@@ -6,19 +6,26 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TriviaBotDSharp.Core.Services.ProfileServices.Contracts;
 using TriviaBotDSharp.Handlers;
 
 namespace DiscordBotTutorial.Bots.Handlers.Dialogue.Steps
 {
     public class TriviaStep : DialogueStepBase
     {
+        protected readonly string _difficulty;
+        protected readonly string _category;
         private readonly Dictionary<DiscordEmoji, TriviaStepData> _options;
+        private readonly IProfileService _profileService;
 
         private DiscordEmoji _selectedEmoji;
 
-        public TriviaStep(string title, string content, Dictionary<DiscordEmoji, TriviaStepData> options) : base(title, content)
+        public TriviaStep(string title, string content, string category, string difficulty, Dictionary<DiscordEmoji, TriviaStepData> options, IProfileService profileService) : base(title, content)
         {
             _options = options;
+            _difficulty = difficulty;
+            _category = category;
+            _profileService = profileService;
         }
 
         public override IDialogueStep NextStep => _options[_selectedEmoji].NextStep;
@@ -27,6 +34,9 @@ namespace DiscordBotTutorial.Bots.Handlers.Dialogue.Steps
 
         public override async Task<bool> ProcessStep(DiscordClient client, DiscordChannel channel, DiscordUser user)
         {
+            var profile = await _profileService.GetProfileByName(user.Id, channel.Guild.Id).ConfigureAwait(false);
+            
+
             var cancelEmoji = DiscordEmoji.FromName(client, ":x:");
 
             var embedBuilder = new DiscordEmbedBuilder
@@ -35,14 +45,17 @@ namespace DiscordBotTutorial.Bots.Handlers.Dialogue.Steps
                 Description = $"{_content}",
             };
 
+            embedBuilder.AddField("Category:", _category);
+            embedBuilder.AddField("Difficulty:", _difficulty);
             embedBuilder.AddField("To Cancel Trivia", "React with the :x: emoji");
-
-            embedBuilder.WithFooter("You have 15 seconds to answer your Question...");
+            
+            embedBuilder.WithFooter("You have 15 seconds to answer your Question...", user.GetAvatarUrl(ImageFormat.Jpeg));
 
             var interactivity = client.GetInteractivity();
 
             while (true)
             {
+                await channel.SendMessageAsync($"{user.Mention} Here is your question: ");
                 var embed = await channel.SendMessageAsync(embed: embedBuilder).ConfigureAwait(false);
                 
 
@@ -71,6 +84,15 @@ namespace DiscordBotTutorial.Bots.Handlers.Dialogue.Steps
 
                 _selectedEmoji = reactionResult.Result.Emoji;
 
+                if (_options[_selectedEmoji].AnsweredCorrectly)
+                {
+                    await _profileService.IncreaseCorrectAnswers(profile.DiscordId, profile.GuildId).ConfigureAwait(false);
+                }
+                else
+                {
+                    await _profileService.IncreaseIncorrectAnswers(profile.DiscordId, profile.GuildId).ConfigureAwait(false);
+                }
+
                 OnValidResult(_selectedEmoji);
 
                 return false;
@@ -81,6 +103,8 @@ namespace DiscordBotTutorial.Bots.Handlers.Dialogue.Steps
     public class TriviaStepData
     {
         public string Content { get; set; }
+        
         public IDialogueStep NextStep { get; set; }
+        public bool AnsweredCorrectly { get; set; }
     }
 }

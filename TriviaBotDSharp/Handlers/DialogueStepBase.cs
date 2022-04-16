@@ -11,11 +11,13 @@ namespace TriviaBotDSharp.Handlers
     {
         protected readonly string _content;
         protected readonly string _title;
+        
 
         public DialogueStepBase(string title, string content)
         {
             _content = content;
             _title = title;
+            
         }
         public abstract IDialogueStep NextStep { get; }
 

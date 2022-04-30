@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace TriviaBotDSharp.DAL.Models
@@ -10,5 +11,6 @@ namespace TriviaBotDSharp.DAL.Models
         public ulong GuildId { get; set; }
         public int CorrectAnswers { get; set; }
         public int WrongAnswers { get; set; }
+               
     }
 }

@@ -11,6 +11,7 @@ namespace TriviaBotDSharp.CommandsFolder
     public class ProfileCommands : BaseCommandModule
     {
         private readonly IProfileService _profileService;
+        
         public ProfileCommands(IProfileService profileService)
         {
             _profileService = profileService;
@@ -33,9 +34,12 @@ namespace TriviaBotDSharp.CommandsFolder
 
             var profileEmbed = new DiscordEmbedBuilder
             {
-                Title = $"{member.DisplayName}'s Profile",
-                ImageUrl = member.AvatarUrl
+                Title = $"{member.Username}#{member.Discriminator}'s Profile",
+                
             };
+            
+            profileEmbed.WithFooter("Stats provided by TriviaBot!", @"https://imgur.com/Jret6tP");
+            profileEmbed.WithThumbnail(member.GetAvatarUrl(DSharpPlus.ImageFormat.Jpeg));
             profileEmbed.AddField("Correct answers", profile.CorrectAnswers.ToString());
             profileEmbed.AddField("Incorrect answers", profile.WrongAnswers.ToString());
 

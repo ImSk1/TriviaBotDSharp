@@ -13,5 +13,6 @@ namespace TriviaBotDSharp.DAL
 
         }
         public DbSet<PlayerProfile> Profiles { get; set; }
+       
     }
 }

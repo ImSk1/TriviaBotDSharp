@@ -15,7 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TriviaBotDSharp.DAL.Migrati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TriviaBotDSharp.Core", "TriviaBotDSharp.Core", "{27061071-0428-4CBD-8C95-F9A4C7A783E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriviaBotDSharp.Core", "TriviaBotDSharp.Core\TriviaBotDSharp.Core.csproj", "{5AB34663-616B-4BFB-B9AD-BDB2ABDE2D3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TriviaBotDSharp.Core", "TriviaBotDSharp.Core\TriviaBotDSharp.Core.csproj", "{5AB34663-616B-4BFB-B9AD-BDB2ABDE2D3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TriviaBotDSharp.API", "TriviaBotDSharp.API", "{157DD200-E3C7-42BF-B5DE-1793F2A9E233}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriviaBotDSharp.API", "TriviaBotDSharp.API\TriviaBotDSharp.API.csproj", "{70FB519A-5F40-402E-9614-22C0DCA5929F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,10 @@ Global
 		{5AB34663-616B-4BFB-B9AD-BDB2ABDE2D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AB34663-616B-4BFB-B9AD-BDB2ABDE2D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AB34663-616B-4BFB-B9AD-BDB2ABDE2D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70FB519A-5F40-402E-9614-22C0DCA5929F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70FB519A-5F40-402E-9614-22C0DCA5929F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70FB519A-5F40-402E-9614-22C0DCA5929F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70FB519A-5F40-402E-9614-22C0DCA5929F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{0873BF30-4CE8-40FC-B5A5-08C1B219493E} = {1AC3DA18-1563-4A69-950F-EAC87EAD84F0}
 		{87E8062D-4A34-47F0-AD4D-5B155870DE97} = {1AC3DA18-1563-4A69-950F-EAC87EAD84F0}
 		{5AB34663-616B-4BFB-B9AD-BDB2ABDE2D3E} = {27061071-0428-4CBD-8C95-F9A4C7A783E0}
+		{70FB519A-5F40-402E-9614-22C0DCA5929F} = {157DD200-E3C7-42BF-B5DE-1793F2A9E233}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05C50BEE-6137-46BC-AA24-3B4BC2F6B81A}

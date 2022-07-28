@@ -2,33 +2,43 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using TriviaBotDSharp.DAL;
-using Microsoft.EntityFrameworkCore.Design;
-using TriviaBotDSharp.Core.Services.ProfileServices.Contracts;
-using TriviaBotDSharp.Core.Services.ProfileServices;
-using TriviaBotDSharp.Core.Services.AnswersServices.Contracts;
 using TriviaBotDSharp.Core.Services.AnswersServices;
-using TriviaBotDSharp.Core.Services.APIServices.Contracts;
-using TriviaBotDSharp.Core.Services.APIServices;
+using TriviaBotDSharp.Core.Services.AnswersServices.Contracts;
+using TriviaBotDSharp.Core.Services.ProfileServices;
+using TriviaBotDSharp.Core.Services.ProfileServices.Contracts;
+using TriviaBotDSharp.DAL;
+using TriviaBotDSharp.API.Services;
+using Microsoft.Extensions.Configuration;
+using TriviaBotDSharp.Core.MappingProfiles;
 
 namespace TriviaBotDSharp
 {
     public class Startup
     {
+        private readonly IConfiguration _config;
+
+        public Startup(IConfiguration config)
+        {
+            _config = config;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             
             services.AddDbContext<TriviaContext>(options =>
             {
-                options.UseSqlServer("Data Source=DESKTOP-26JMI7A\\MSSQLSERVER01;Initial Catalog=TriviaContext;Integrated Security=True",
+                options.UseSqlServer(_config.GetValue<string>("connectionString"),
                     x => x.MigrationsAssembly("TriviaBotDSharp.DAL.Migrations"));
-                //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                
 
             });
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IAnswersService, AnswersService>();
             services.AddScoped<IAPIService, APIService>();
-
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<PlayerProfileProfile>();
+            });
             var serviceProvider = services.BuildServiceProvider();
             var bot = new Bot(serviceProvider);
             services.AddSingleton(bot);

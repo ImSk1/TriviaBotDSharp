@@ -11,6 +11,8 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="DSharpPlus" Version="4.1.0" />
     <PackageReference Include="DSharpPlus.CommandsNext" Version="4.1.0" />
     <PackageReference Include="DSharpPlus.Interactivity" Version="4.1.0" />
@@ -25,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TriviaBotDSharp.API\TriviaBotDSharp.API.csproj" />
     <ProjectReference Include="..\TriviaBotDSharp.Core\TriviaBotDSharp.Core.csproj" />
     <ProjectReference Include="..\TriviaBotDSharp.DAL.Migrations\TriviaBotDSharp.DAL.Migrations.csproj" />
     <ProjectReference Include="..\TriviaBotDSharp.DAL\TriviaBotDSharp.DAL.csproj" />

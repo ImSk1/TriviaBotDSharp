@@ -15,7 +15,7 @@ namespace TriviaBotDSharp
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(cfg =>
                 {
-                    cfg.AddJsonFile("config.json");
+                    cfg.AddJsonFile("appsettings.json");
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

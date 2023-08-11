@@ -8,6 +8,10 @@ namespace TriviaBotDSharp.DAL
 {
     public class TriviaContext : DbContext
     {
+        public TriviaContext()
+        {
+            
+        }
         public TriviaContext(DbContextOptions<TriviaContext> options) : base(options)
         {
 

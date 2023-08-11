@@ -27,7 +27,8 @@ namespace TriviaBotDSharp
             
             services.AddDbContext<TriviaContext>(options =>
             {
-                options.UseSqlServer(_config.GetValue<string>("connectionString"),
+                var conString = _config.GetConnectionString("DefaultConnection");
+                options.UseSqlServer(conString,
                     x => x.MigrationsAssembly("TriviaBotDSharp.DAL.Migrations"));
                 
 

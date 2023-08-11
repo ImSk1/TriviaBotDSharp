@@ -5,9 +5,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 	<GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
   </PropertyGroup>
-	
+
   <ItemGroup>
-		<None Include="bin\Debug\netcoreapp3.1\config.json" />
+    <Compile Remove="bin\**" />
+    <Content Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
   </ItemGroup>
 	
   <ItemGroup>
@@ -16,12 +19,16 @@
     <PackageReference Include="DSharpPlus" Version="4.1.0" />
     <PackageReference Include="DSharpPlus.CommandsNext" Version="4.1.0" />
     <PackageReference Include="DSharpPlus.Interactivity" Version="4.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.24" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.24">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.32" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.32">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.24" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.32" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.32">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
   </ItemGroup>
@@ -31,6 +38,12 @@
     <ProjectReference Include="..\TriviaBotDSharp.Core\TriviaBotDSharp.Core.csproj" />
     <ProjectReference Include="..\TriviaBotDSharp.DAL.Migrations\TriviaBotDSharp.DAL.Migrations.csproj" />
     <ProjectReference Include="..\TriviaBotDSharp.DAL\TriviaBotDSharp.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

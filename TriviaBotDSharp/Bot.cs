@@ -20,7 +20,7 @@ namespace TriviaBotDSharp
         public Bot(IServiceProvider services)
         {
             var json = string.Empty;
-            using (var fs = File.OpenRead("config.json"))
+            using (var fs = File.OpenRead("appsettings.json"))
             using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
                 json = sr.ReadToEnd();
 
